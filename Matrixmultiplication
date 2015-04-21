@@ -1,0 +1,38 @@
+#include<stdio.h>
+int m,n,p,q;
+int C[101][101];
+int A[101][101];
+int B[101][101];
+int main()
+{
+	
+	int i,j,k;
+	scanf("%d %d",&n,&m);
+	for(i=0;i<n;i++)
+		for(j=0;j<m;j++)
+			scanf("%d",&A[i][j]);
+     scanf("%d %d",&p,&q);
+	 for(i=0;i<p;i++)
+		for(j=0;j<q;j++)
+			scanf("%d",&B[i][j]); 
+		if(m!=p)
+		printf("error!");
+	else 
+		for(i=0;i<n;i++)
+		{	for(j=0;j<q;j++)
+			{	C[i][j]=0;
+			for(k=0;k<m;k++)
+			C[i][j]=C[i][j]+A[i][k]*B[k][j];
+			}
+		}
+	 
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<q-1;j++)
+			{	printf("%d ",C[i][j]);
+			}
+		    printf("%d",C[i][j]);
+		    printf("\n");
+		}
+		 return 0;
+}
