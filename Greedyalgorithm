@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+#include <string>
+using namespace std;
+int N;
+int M;
+int d[1005][8193];
+int w[1005];
+int v[1005];
+int ans[1005];
+int main()
+{
+	int cnt;
+    int i,j;
+	while (scanf("%d%d", &N, &M) != EOF)
+	{
+		cnt = 0;
+		memset(d, 0, sizeof(d));
+		for ( i = 1; i <= N; i++)
+		{
+			scanf("%d", &w[i]);
+		}
+		for (i = 1; i <= N; i++)
+		{
+			scanf("%d", &v[i]);
+		}      
+		for (i = 1; i <= N; i++)
+		{
+			for ( j = 0; j <= M; j++)
+			{
+				d[i][j] = d[i - 1][j];
+				if (j >= w[i])
+				{
+                  if(d[i][j]>=d[i - 1][j - w[i]] + v[i])
+					d[i][j] = d[i][j];
+				  else 
+                   d[i][j] =d[i - 1][j - w[i]] + v[i];
+				}
+			}
+		}
+		int consume = 0;
+		int j = M;
+		for ( i = N; i >= 1; i--)
+		{
+			j -= consume; 
+			consume = 0;
+			if (j >= w[i] && d[i][j] == d[i - 1][j - w[i]] + v[i])
+			{
+				ans[cnt++] = i;
+				consume = w[i];
+			}
+		}
+		printf("%d\n", cnt);
+		for ( i = cnt - 1; i >= 0; i--)
+		{
+			printf(i == 0 ? "%d\n" : "%d ", ans[i]);
+		}
+	
+	}
+//	system("pause");
+	return 0;
+}
+
